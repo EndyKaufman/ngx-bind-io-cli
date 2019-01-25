@@ -17,7 +17,7 @@ Tools for check Angular7+ components for use ngx-bind-io directives
 # Usage
 <!-- ussage -->
 ```sh-session
-$ npx nrx-bind-io-cli ./src
+$ npx ngx-bind-io-cli ./src
 ```
 <!-- ussagestop -->
 
@@ -25,7 +25,7 @@ $ npx nrx-bind-io-cli ./src
 # Commands
 <!-- commands -->
 
-## `nrx-bind-io-cli [PATH]`
+## `ngx-bind-io-cli [PATH]`
 
 ```
 USAGE
