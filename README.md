@@ -1,7 +1,7 @@
 ngx-bind-io-cli
 ===============
 
-Tools for check Angular7+ components for use ngx-bind-io directives
+Tools for check Angular7+ components for use [ngx-bind-io](https://github.com/EndyKaufman/ngx-bind-io) directives
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/ngx-bind-io-cli.svg)](https://npmjs.org/package/ngx-bind-io-cli)
