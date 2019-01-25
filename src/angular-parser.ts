@@ -80,7 +80,7 @@ export function getAngularComponents(file: string, autoInitialize: boolean) {
                 baseClasses.forEach(derivedClasse =>
                     derivedClasse.getInstanceProperties().forEach(prop => {
                         const propName = prop.getName() || '';
-                        const propDeclaration = derivedClasse.getPropertyOrThrow(propName);
+                        const propDeclaration = derivedClasse.getProperty(propName);
                         prop.getDecorators().filter(dec => {
                             const propDecName = dec.getName() || '';
                             if (
@@ -88,7 +88,7 @@ export function getAngularComponents(file: string, autoInitialize: boolean) {
                             ) {
                                 let initialized = (prop.getStructure() as ParameterDeclarationStructure)
                                     .initializer !== undefined;
-                                if (!initialized && autoInitialize) {
+                                if (propDeclaration && !initialized && autoInitialize) {
                                     propDeclaration.setInitializer('undefined');
                                     initialized = true;
                                     propDeclaration.getSourceFile().saveSync();
