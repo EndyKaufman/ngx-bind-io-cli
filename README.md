@@ -1,0 +1,48 @@
+ngx-bind-io-cli
+===============
+
+Tools for check Angular7+ components for use ngx-bind-io directives
+
+[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
+[![Version](https://img.shields.io/npm/v/ngx-bind-io-cli.svg)](https://npmjs.org/package/ngx-bind-io-cli)
+[![CircleCI](https://circleci.com/gh/EndyKaufman/ngx-bind-io-cli/tree/master.svg?style=shield)](https://circleci.com/gh/EndyKaufman/ngx-bind-io-cli/tree/master)
+[![Appveyor CI](https://ci.appveyor.com/api/projects/status/github/EndyKaufman/ngx-bind-io-cli?branch=master&svg=true)](https://ci.appveyor.com/project/EndyKaufman/ngx-bind-io-cli/branch/master)
+[![Codecov](https://codecov.io/gh/EndyKaufman/ngx-bind-io-cli/branch/master/graph/badge.svg)](https://codecov.io/gh/EndyKaufman/ngx-bind-io-cli)
+[![Downloads/week](https://img.shields.io/npm/dw/ngx-bind-io-cli.svg)](https://npmjs.org/package/ngx-bind-io-cli)
+[![License](https://img.shields.io/npm/l/ngx-bind-io-cli.svg)](https://github.com/EndyKaufman/ngx-bind-io-cli/blob/master/package.json)
+
+* [Usage](#usage)
+* [Commands](#commands)
+
+# Usage
+<!-- ussage -->
+```sh-session
+$ npx nrx-bind-io-cli ./src
+```
+<!-- ussagestop -->
+
+
+# Commands
+<!-- commands -->
+
+## `nrx-bind-io-cli [PATH]`
+
+```
+USAGE
+  $ ngx-bind-io-cli [PATH]
+
+OPTIONS
+  -V, --verbose            Show all detail informations for inputs and outputs used in components
+  -f, --fix                Auto initialized all not initialized inputs
+  -h, --help               show CLI help
+  -i, --info               Show inputs and outputs used in components
+  -v, --version            show CLI version
+  --ignores=ignores        Ignored files and paths
+
+  --maxInputs=maxInputs    [default: 3] Max count of inputs for detect need use NgxBindIO
+                           directives
+
+  --maxOutputs=maxOutputs  [default: 3] Max count of outputs for detect need use NgxBindIO
+                           directives
+```
+<!-- commandsstop -->

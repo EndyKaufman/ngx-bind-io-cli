@@ -1,0 +1,93 @@
+{
+  "name": "ngx-bind-io-cli",
+  "description": "Tools for check Angular7+ components for use ngx-bind-io directives",
+  "version": "0.1.0",
+  "author": {
+    "name": "endy",
+    "email": "admin@site15.ru"
+  },
+  "bin": {
+    "ngx-bind-io-cli": "./bin/run"
+  },
+  "bugs": {
+    "url": "https://github.com/EndyKaufman/ngx-bind-io-cli/issues"
+  },
+  "homepage": "https://github.com/EndyKaufman/ngx-bind-io-cli",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EndyKaufman/ngx-bind-io-cli.git"
+  },
+  "dependencies": {
+    "@oclif/color": "0.0.0",
+    "@oclif/command": "^1.5.8",
+    "@oclif/config": "^1.12.0",
+    "@oclif/plugin-help": "^2.1.4",
+    "@types/cli-progress": "^1.8.0",
+    "@types/recursive-readdir": "^2.2.0",
+    "cli-progress": "^2.1.1",
+    "recursive-readdir": "^2.2.2",
+    "ts-simple-ast": "^21.0.0",
+    "tslib": "^1.9.3"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.21.0",
+    "@oclif/test": "^1.2.2",
+    "@oclif/tslint": "^3.1.1",
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.18",
+    "chai": "^4.2.0",
+    "conventional-changelog-cli": "^2.0.11",
+    "conventional-commits-detector": "^1.0.2",
+    "conventional-recommended-bump": "^4.0.4",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
+    "rimraf": "^2.6.3",
+    "ts-node": "^8.0.1",
+    "tslint": "^5.12.1",
+    "typescript": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6.4.0"
+  },
+  "files": [
+    "/bin",
+    "/lib"
+  ],
+  "keywords": [
+    "oclif",
+    "cli",
+    "console",
+    "tools",
+    "input",
+    "output",
+    "directives",
+    "dynamic",
+    "auto",
+    "bind",
+    "binding",
+    "inheritance",
+    "hierarchy",
+    "nested",
+    "class",
+    "component",
+    "extends",
+    "angular",
+    "angular7"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "oclif": {
+    "bin": "ngx-bind-io-cli"
+  },
+  "scripts": {
+    "readme": "oclif-dev readme && git add README.md",
+    "posttest": "tslint -p test -t stylish",
+    "prepack": "rm -rf lib && tsc -b",
+    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\" --timeout 1000000",
+    "watch": "rimraf lib && tsc --watch",
+    "run": "node ./bin/run"
+  },
+  "types": "lib/index.d.ts"
+}
