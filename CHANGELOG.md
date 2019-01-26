@@ -1,3 +1,12 @@
+# [0.2.0](https://github.com/EndyKaufman/ngx-bind-io-cli/compare/0.1.1...0.2.0) (2019-01-26)
+
+
+### Features
+
+* Add support tsconfig file ([5d942a0](https://github.com/EndyKaufman/ngx-bind-io-cli/commit/5d942a0))
+
+
+
 ## [0.1.1](https://github.com/EndyKaufman/ngx-bind-io-cli/compare/0.1.0...0.1.1) (2019-01-25)
 
 
