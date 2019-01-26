@@ -1,4 +1,4 @@
-import Project, { ClassDeclaration, Decorator, ParameterDeclarationStructure } from 'ts-simple-ast';
+import Project, { ClassDeclaration, Decorator, ParameterDeclarationStructure, SourceFile } from 'ts-simple-ast';
 import { getBetween } from './get-between';
 
 export interface IAngularComponentInput {
@@ -52,19 +52,15 @@ export function parseArguments(dec: Decorator) {
         arguments: args
     };
 }
-export function getAngularComponents(file: string, autoInitialize: boolean) {
+export function getAngularComponents(project: Project, sourceFile: SourceFile, autoInitialize: boolean) {
     const components: IAngularComponent[] = [];
-    const project = new Project();
-    const sourceFile = project.addExistingSourceFile(
-        file
-    );
     const classes = sourceFile.getClasses();
     classes.forEach(foundedClass => {
         foundedClass.getDecorators().map(classDecorator => {
             if (classDecorator.getName() === 'Component') {
                 const args = parseArguments(classDecorator);
                 const component: IAngularComponent = {
-                    file: file,
+                    file: sourceFile.getBaseName(),
                     className: foundedClass.getName() || '',
                     selector: args.selector,
                     autoInitializedInputs: [],

@@ -16,8 +16,17 @@ Tools for check Angular7+ components for use [ngx-bind-io](https://github.com/En
 
 # Usage
 <!-- ussage -->
+Simple
 ```sh-session
 $ npx ngx-bind-io-cli ./src
+```
+With detect all component and ignore count of inputs or outputs
+```sh-session
+$ npx ngx-bind-io-cli ./src --maxInputs=0 --maxOutputs=0
+```
+With correct work with tspaths
+```sh-session
+$ npx ngx-bind-io-cli ./src --maxInputs=0 --maxOutputs=0 --tsconfig=./src/tsconfig.app.json
 ```
 <!-- ussagestop -->
 
@@ -32,11 +41,19 @@ USAGE
   $ ngx-bind-io-cli [PATH]
 
 OPTIONS
-  -V, --verbose            Show all detail informations for inputs and outputs used in components
+  -V, --verbose            Show all detail informations for inputs and outputs used in
+                           components
+
+  -c, --tsconfig=tsconfig  Please set if you use tspaths for correct scan base components
+
   -f, --fix                Auto initialized all not initialized inputs
+
   -h, --help               show CLI help
+
   -i, --info               Show inputs and outputs used in components
+
   -v, --version            show CLI version
+
   --ignores=ignores        Ignored files and paths
 
   --maxInputs=maxInputs    [default: 3] Max count of inputs for detect need use NgxBindIO

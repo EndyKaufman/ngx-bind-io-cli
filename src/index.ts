@@ -3,6 +3,7 @@ import { Command, flags } from '@oclif/command';
 import { Bar, Presets } from 'cli-progress';
 import { readFileSync } from 'fs';
 import * as recursiveReadDir from 'recursive-readdir';
+import Project from 'ts-simple-ast';
 import { countUsed, getAngularComponents, IAngularComponent } from './angular-parser';
 
 class NgxBindIoCli extends Command {
@@ -19,6 +20,7 @@ class NgxBindIoCli extends Command {
     }),
     maxInputs: flags.integer({ description: 'Max count of inputs for detect need use NgxBindIO directives', default: 3 }),
     maxOutputs: flags.integer({ description: 'Max count of outputs for detect need use NgxBindIO directives', default: 3 }),
+    tsconfig: flags.string({ char: 'c', description: 'Please set if you use tspaths for correct scan base components' }),
   };
 
   static args = [{ name: 'path' }];
@@ -35,16 +37,17 @@ class NgxBindIoCli extends Command {
       const verbose = flags.verbose;
       const fix = flags.fix;
       const path = args.path;
+      const tsconfig = flags.tsconfig || '';
       const ignores = flags.ignores || [
         'node_modules',
         'dist',
         '*.spec.*',
         '.git'
       ];
-      this.showInfo(path, ignores, fix, info, verbose, maxCountOfInputs, maxCountOfOutputs);
+      this.showInfo(path, tsconfig, ignores, fix, info, verbose, maxCountOfInputs, maxCountOfOutputs);
       const files = await this.scanFiles(path, ignores);
       const sources = this.loadSources(files);
-      const components: IAngularComponent[] = this.parseComponents(files, fix);
+      const components: IAngularComponent[] = this.parseComponentsFromFiles(path, tsconfig, files, fix);
       const useds = this.countUsages(components, files, sources);
       this.showResults(useds, maxCountOfInputs, maxCountOfOutputs, info, verbose);
     }
@@ -135,10 +138,10 @@ class NgxBindIoCli extends Command {
     const useds = components.map((component, index) => {
       files.map((file, index) => {
         const counts = countUsed(sources[index], component);
-        component.usedCount = component.usedCount || 0 + counts.allCount;
-        component.withBindIOCount = component.withBindIOCount || 0 + counts.withBindIOCount;
-        component.withBindInputsCount = component.withBindInputsCount || 0 + counts.withBindInputsCount;
-        component.withBindOutputsCount = component.withBindOutputsCount || 0 + counts.withBindOutputsCount;
+        component.usedCount = (component.usedCount || 0) + counts.allCount;
+        component.withBindIOCount = (component.withBindIOCount || 0) + counts.withBindIOCount;
+        component.withBindInputsCount = (component.withBindInputsCount || 0) + counts.withBindInputsCount;
+        component.withBindOutputsCount = (component.withBindOutputsCount || 0) + counts.withBindOutputsCount;
       });
       bar4.update(index + 1);
       return component;
@@ -146,16 +149,19 @@ class NgxBindIoCli extends Command {
     bar4.stop();
     return useds;
   }
-
-  private parseComponents(files: string[], fix: boolean) {
+  private parseComponentsFromFiles(path: string, tsconfig: string, files: string[], fix: boolean) {
     let components: IAngularComponent[] = [];
     const tsFiles = files.filter(file => file.indexOf('.ts') === file.length - 3);
     const bar3 = new Bar({
       format: color.yellow('(3/4)') + ' Parse components [{bar}] {percentage}% | ETA: {eta}s | {value}/{total}'
     }, Presets.shades_classic);
     bar3.start(tsFiles.length, 1);
-    tsFiles.forEach((file, index) => {
-      const componentsInFile = getAngularComponents(file, fix);
+    const project = tsconfig ? new Project({
+      tsConfigFilePath: tsconfig
+    }) : new Project();
+    project.addExistingSourceFiles(tsFiles);
+    project.getSourceFiles().forEach((sourceFile, index) => {
+      const componentsInFile = sourceFile ? getAngularComponents(project, sourceFile, fix) : [];
       components = [
         ...components,
         ...componentsInFile
@@ -191,9 +197,12 @@ class NgxBindIoCli extends Command {
     return files;
   }
 
-  private showInfo(path: string, ignores: string[], fix: boolean, info: boolean, verbose: boolean, maxCountOfInputs: number, maxCountOfOutputs: number) {
+  private showInfo(path: string, tsconfig: string, ignores: string[], fix: boolean, info: boolean, verbose: boolean, maxCountOfInputs: number, maxCountOfOutputs: number) {
     console.log('Path: ' + color.blue(path));
     console.log('Ignores: ' + color.blue(ignores.join(', ')));
+    if (tsconfig) {
+      console.log('Typescript config: ' + color.blue(tsconfig));
+    }
     if (fix) {
       console.log('Auto initialize: ' + color.blue('true'));
     }
