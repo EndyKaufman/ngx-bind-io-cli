@@ -1,3 +1,12 @@
+# [0.3.0](https://github.com/EndyKaufman/ngx-bind-io-cli/compare/0.2.0...0.3.0) (2019-01-30)
+
+
+### Features
+
+* Add append BindIoInner decorator and import for it when run with --fix options ([f2d0dba](https://github.com/EndyKaufman/ngx-bind-io-cli/commit/f2d0dba))
+
+
+
 # [0.2.0](https://github.com/EndyKaufman/ngx-bind-io-cli/compare/0.1.1...0.2.0) (2019-01-26)
 
 
