@@ -87,7 +87,10 @@
     "prepack": "rm -rf lib && tsc -b",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\" --timeout 1000000",
     "watch": "rimraf lib && tsc --watch",
-    "run": "node ./bin/run"
+    "run": "node ./bin/run",
+    "run-info": "npm run run -- test/fixtures/sources --info --maxInputs=0 --maxOutputs=0",
+    "run-fix-used": "npm run run -- test/fixtures/sources --info --fix=used --maxInputs=0 --maxOutputs=0",
+    "run-fix-all": "npm run run -- test/fixtures/sources --info --fix=all --verbose --maxInputs=0 --maxOutputs=0"
   },
   "types": "lib/index.d.ts"
 }
