@@ -1,7 +1,7 @@
 {
   "name": "ngx-bind-io-cli",
   "description": "Tools for check Angular7+ components for use ngx-bind-io directives",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": {
     "name": "endy",
     "email": "admin@site15.ru"
@@ -87,7 +87,10 @@
     "prepack": "rm -rf lib && tsc -b",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\" --timeout 1000000",
     "watch": "rimraf lib && tsc --watch",
-    "run": "node ./bin/run"
+    "run": "node ./bin/run",
+    "run-info": "npm run run -- test/fixtures/sources --info --maxInputs=0 --maxOutputs=0",
+    "run-fix-used": "npm run run -- test/fixtures/sources --info --fix=used --maxInputs=0 --maxOutputs=0",
+    "run-fix-all": "npm run run -- test/fixtures/sources --info --fix=all --verbose --maxInputs=0 --maxOutputs=0"
   },
   "types": "lib/index.d.ts"
 }

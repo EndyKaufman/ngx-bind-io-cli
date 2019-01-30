@@ -41,25 +41,28 @@ USAGE
   $ ngx-bind-io-cli [PATH]
 
 OPTIONS
-  -V, --verbose            Show all detail informations for inputs and outputs used in
-                           components
+  -c, --tsconfig=tsconfig  Please set if you use tspaths for correct scan
+                           base components
 
-  -c, --tsconfig=tsconfig  Please set if you use tspaths for correct scan base components
-
-  -f, --fix                Auto initialized all not initialized inputs
+  -f, --fix=(used|all)     Auto initialized all not initialized inputs
 
   -h, --help               show CLI help
 
   -i, --info               Show inputs and outputs used in components
 
+  -q, --quoteDouble        Double quote type used for string literals
+
   -v, --version            show CLI version
 
   --ignores=ignores        Ignored files and paths
 
-  --maxInputs=maxInputs    [default: 3] Max count of inputs for detect need use NgxBindIO
-                           directives
+  --maxInputs=maxInputs    [default: 3] Max count of inputs for detect need
+                           use NgxBindIO directives
 
-  --maxOutputs=maxOutputs  [default: 3] Max count of outputs for detect need use NgxBindIO
-                           directives
+  --maxOutputs=maxOutputs  [default: 3] Max count of outputs for detect need
+                           use NgxBindIO directives
+
+  --verbose                Show all detail informations for inputs and
+                           outputs used in components
 ```
 <!-- commandsstop -->

@@ -1,4 +1,4 @@
-import Project, { ClassDeclaration, Decorator, ParameterDeclarationStructure, SourceFile } from 'ts-simple-ast';
+import { ClassDeclaration, Decorator, ImportDeclaration, ImportSpecifierStructure, ParameterDeclarationStructure, SourceFile } from 'ts-simple-ast';
 import { getBetween } from './get-between';
 
 export interface IAngularComponentInput {
@@ -10,8 +10,6 @@ export interface IAngularComponentOutput {
     initialized: boolean;
 }
 export interface IAngularComponent {
-    file: string;
-    className: string;
     selector: string;
     inputs: IAngularComponentInput[];
     outputs: IAngularComponentOutput[];
@@ -20,6 +18,8 @@ export interface IAngularComponent {
     withBindIOCount?: number;
     withBindInputsCount?: number;
     withBindOutputsCount?: number;
+    sourceFile: SourceFile;
+    class: ClassDeclaration;
 }
 
 export function countUsed(source: string, component: IAngularComponent) {
@@ -52,7 +52,81 @@ export function parseArguments(dec: Decorator) {
         arguments: args
     };
 }
-export function getAngularComponents(project: Project, sourceFile: SourceFile, autoInitialize: boolean) {
+export function updateAngularComponents(component: IAngularComponent) {
+    const componentClass = component.class;
+    const importDeclaration = component.sourceFile.getImportDeclaration(
+        (importDeclaration: ImportDeclaration) => {
+            const structure = importDeclaration.getStructure();
+            if (structure.moduleSpecifier === 'ngx-binf-io' &&
+                structure && structure.namedImports &&
+                (structure.namedImports as ImportSpecifierStructure[]).filter(namedImport =>
+                    namedImport.name === 'BindIoInner'
+                ).length > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+    if (!importDeclaration) {
+        component.sourceFile.addImportDeclaration({
+            defaultImport: undefined,
+            moduleSpecifier: 'ngx-binf-io',
+            namedImports: [{
+                name: 'BindIoInner',
+                alias: undefined
+            }]
+        });
+        component.sourceFile.saveSync();
+    }
+    componentClass.getDecorators().map(classDecorator => {
+        if (classDecorator.getName() === 'Component') {
+            const baseClasses: ClassDeclaration[] = [];
+            let eachClass: ClassDeclaration | undefined = componentClass;
+            while (eachClass) {
+                baseClasses.push(eachClass);
+                eachClass = eachClass.getBaseClass();
+            }
+            component.inputs = [];
+            baseClasses.forEach(derivedClasse => {
+                const decoratedWithBindIoInner = derivedClasse.getDecorators().filter(dec => dec.getName() === 'BindIoInner').length > 0;
+                const decoratedWithComponent = derivedClasse.getDecorators().filter(dec => dec.getName() === 'Component').length > 0;
+                if (!decoratedWithBindIoInner && decoratedWithComponent) {
+                    derivedClasse.insertDecorator(0, { name: 'BindIoInner', arguments: [] });
+                }
+                derivedClasse.getSourceFile().saveSync();
+                derivedClasse.getInstanceProperties().forEach(prop => {
+                    const propName = prop.getName() || '';
+                    const propDeclaration = derivedClasse.getProperty(propName);
+                    prop.getDecorators().filter(dec => {
+                        const propDecName = dec.getName() || '';
+                        if (
+                            propDecName === 'Input'
+                        ) {
+                            let initialized = (prop.getStructure() as ParameterDeclarationStructure)
+                                .initializer !== undefined;
+                            if (propDeclaration && !initialized) {
+                                propDeclaration.setInitializer('undefined');
+                                initialized = true;
+                                propDeclaration.getSourceFile().saveSync();
+                                component.autoInitializedInputs.push({
+                                    name: propName,
+                                    initialized: initialized
+                                });
+                            }
+                            component.inputs.push({
+                                name: propName,
+                                initialized: initialized
+                            });
+                        }
+                    });
+                });
+            });
+        }
+    });
+    return component;
+}
+
+export function getAngularComponents(sourceFile: SourceFile) {
     const components: IAngularComponent[] = [];
     const classes = sourceFile.getClasses();
     classes.forEach(foundedClass => {
@@ -60,8 +134,8 @@ export function getAngularComponents(project: Project, sourceFile: SourceFile, a
             if (classDecorator.getName() === 'Component') {
                 const args = parseArguments(classDecorator);
                 const component: IAngularComponent = {
-                    file: sourceFile.getBaseName(),
-                    className: foundedClass.getName() || '',
+                    sourceFile: sourceFile,
+                    class: foundedClass,
                     selector: args.selector,
                     autoInitializedInputs: [],
                     inputs: [],
@@ -76,26 +150,15 @@ export function getAngularComponents(project: Project, sourceFile: SourceFile, a
                 baseClasses.forEach(derivedClasse =>
                     derivedClasse.getInstanceProperties().forEach(prop => {
                         const propName = prop.getName() || '';
-                        const propDeclaration = derivedClasse.getProperty(propName);
                         prop.getDecorators().filter(dec => {
                             const propDecName = dec.getName() || '';
                             if (
                                 propDecName === 'Input'
                             ) {
-                                let initialized = (prop.getStructure() as ParameterDeclarationStructure)
-                                    .initializer !== undefined;
-                                if (propDeclaration && !initialized && autoInitialize) {
-                                    propDeclaration.setInitializer('undefined');
-                                    initialized = true;
-                                    propDeclaration.getSourceFile().saveSync();
-                                    component.autoInitializedInputs.push({
-                                        name: propName,
-                                        initialized: initialized
-                                    });
-                                }
                                 component.inputs.push({
                                     name: propName,
-                                    initialized: initialized
+                                    initialized: (prop.getStructure() as ParameterDeclarationStructure)
+                                        .initializer !== undefined
                                 });
                             }
                             if (
