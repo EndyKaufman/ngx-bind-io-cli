@@ -1,3 +1,12 @@
+## [0.3.1](https://github.com/EndyKaufman/ngx-bind-io-cli/compare/0.3.0...0.3.1) (2019-02-01)
+
+
+### Bug Fixes
+
+* Update import name ([0a125b6](https://github.com/EndyKaufman/ngx-bind-io-cli/commit/0a125b6))
+
+
+
 # [0.3.0](https://github.com/EndyKaufman/ngx-bind-io-cli/compare/0.2.0...0.3.0) (2019-01-30)
 
 
