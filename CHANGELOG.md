@@ -1,3 +1,12 @@
+## [0.3.2](https://github.com/EndyKaufman/ngx-bind-io-cli/compare/0.3.1...0.3.2) (2019-02-01)
+
+
+### Bug Fixes
+
+* Correct set quote kind of --quoteDouble attribute ([9bb9ec0](https://github.com/EndyKaufman/ngx-bind-io-cli/commit/9bb9ec0))
+
+
+
 ## [0.3.1](https://github.com/EndyKaufman/ngx-bind-io-cli/compare/0.3.0...0.3.1) (2019-02-01)
 
 
