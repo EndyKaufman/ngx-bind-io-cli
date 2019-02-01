@@ -1,7 +1,7 @@
 {
   "name": "ngx-bind-io-cli",
   "description": "Tools for check Angular7+ components for use ngx-bind-io directives",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": {
     "name": "endy",
     "email": "admin@site15.ru"
@@ -20,13 +20,13 @@
   "dependencies": {
     "@oclif/color": "0.0.0",
     "@oclif/command": "^1.5.8",
-    "@oclif/config": "^1.12.0",
-    "@oclif/plugin-help": "^2.1.4",
+    "@oclif/config": "^1.12.4",
+    "@oclif/plugin-help": "^2.1.6",
     "@types/cli-progress": "^1.8.0",
     "@types/recursive-readdir": "^2.2.0",
     "cli-progress": "^2.1.1",
     "recursive-readdir": "^2.2.2",
-    "ts-simple-ast": "^21.0.0",
+    "ts-simple-ast": "^21.0.3",
     "tslib": "^1.9.3"
   },
   "devDependencies": {
@@ -35,7 +35,7 @@
     "@oclif/tslint": "^3.1.1",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.5",
-    "@types/node": "^10.12.18",
+    "@types/node": "^10.12.19",
     "chai": "^4.2.0",
     "conventional-changelog-cli": "^2.0.11",
     "conventional-commits-detector": "^1.0.2",
@@ -43,9 +43,9 @@
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
     "rimraf": "^2.6.3",
-    "ts-node": "^8.0.1",
+    "ts-node": "^8.0.2",
     "tslint": "^5.12.1",
-    "typescript": "^3.2.4"
+    "typescript": "^3.3.1"
   },
   "engines": {
     "node": ">=10",
@@ -56,6 +56,26 @@
     "/lib"
   ],
   "keywords": [
+    "angular",
+    "angular2",
+    "angular 2",
+    "angular4",
+    "angular 4",
+    "angular5",
+    "angular 5",
+    "angular6",
+    "angular 6",
+    "angular7",
+    "angular 7",
+    "angularx",
+    "angular-x",
+    "ng",
+    "ng2",
+    "ng4",
+    "ng5",
+    "ng6",
+    "ng7",
+    "ngx",
     "oclif",
     "cli",
     "console",
@@ -72,9 +92,7 @@
     "nested",
     "class",
     "component",
-    "extends",
-    "angular",
-    "angular7"
+    "extends"
   ],
   "license": "MIT",
   "main": "lib/index.js",

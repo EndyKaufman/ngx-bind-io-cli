@@ -57,7 +57,7 @@ export function updateAngularComponents(component: IAngularComponent) {
     const importDeclaration = component.sourceFile.getImportDeclaration(
         (importDeclaration: ImportDeclaration) => {
             const structure = importDeclaration.getStructure();
-            if (structure.moduleSpecifier === 'ngx-binf-io' &&
+            if (structure.moduleSpecifier === 'ngx-bind-io' &&
                 structure && structure.namedImports &&
                 (structure.namedImports as ImportSpecifierStructure[]).filter(namedImport =>
                     namedImport.name === 'BindIoInner'
@@ -70,7 +70,7 @@ export function updateAngularComponents(component: IAngularComponent) {
     if (!importDeclaration) {
         component.sourceFile.addImportDeclaration({
             defaultImport: undefined,
-            moduleSpecifier: 'ngx-binf-io',
+            moduleSpecifier: 'ngx-bind-io',
             namedImports: [{
                 name: 'BindIoInner',
                 alias: undefined
