@@ -11,10 +11,26 @@ Tools for check Angular7+ components for use [ngx-bind-io](https://github.com/En
 [![Downloads/week](https://img.shields.io/npm/dw/ngx-bind-io-cli.svg)](https://npmjs.org/package/ngx-bind-io-cli)
 [![License](https://img.shields.io/npm/l/ngx-bind-io-cli.svg)](https://github.com/EndyKaufman/ngx-bind-io-cli/blob/master/package.json)
 
-* [Usage](#usage)
-* [Commands](#commands)
+## Example use [ngx-bind-io](https://github.com/EndyKaufman/ngx-bind-io) directives
 
-# Usage
+Without auto binding inputs and outputs
+```html
+<component-name
+    (start)="onStart()"
+    [isLoading]="isLoading$ | async"
+    [propA]="propA"
+    [propB]="propB">
+</component-name>
+```
+
+With auto binding inputs and outputs
+```html
+<component-name
+    [bindIO]>
+</component-name>
+```
+
+## Usage
 <!-- ussage -->
 Simple
 ```sh-session
@@ -31,10 +47,10 @@ $ npx ngx-bind-io-cli ./src --maxInputs=0 --maxOutputs=0 --tsconfig=./src/tsconf
 <!-- ussagestop -->
 
 
-# Commands
+## Commands
 <!-- commands -->
 
-## `ngx-bind-io-cli [PATH]`
+### `ngx-bind-io-cli [PATH]`
 
 ```
 USAGE
