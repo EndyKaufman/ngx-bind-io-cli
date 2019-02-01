@@ -175,7 +175,7 @@ class NgxBindIoCli extends Command {
     }) : new Project();
     project.manipulationSettings.set({
       insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces: true,
-      quoteKind: quoteDouble ? QuoteKind.Single : QuoteKind.Double
+      quoteKind: quoteDouble ? QuoteKind.Double : QuoteKind.Single
     });
     project.addExistingSourceFiles(tsFiles);
     project.getSourceFiles().forEach((sourceFile, index) => {
