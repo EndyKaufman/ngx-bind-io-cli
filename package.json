@@ -21,10 +21,10 @@
     "@oclif/color": "0.0.0",
     "@oclif/command": "^1.5.8",
     "@oclif/config": "^1.12.4",
-    "@oclif/plugin-help": "^2.1.6",
+    "@oclif/plugin-help": "^4.0.0",
     "@types/cli-progress": "^1.8.0",
     "@types/recursive-readdir": "^2.2.0",
-    "cli-progress": "^2.1.1",
+    "cli-progress": "^3.11.0",
     "recursive-readdir": "^2.2.2",
     "ts-simple-ast": "^21.0.3",
     "tslib": "^1.9.3"
